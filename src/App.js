@@ -10,20 +10,43 @@ import SideBar from './SideBar/SideBar';
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      storeData
-    }
+      storeData,
+      newFolder: false,
+      newNote: false,
+    };
   }
 
+  addNewFolder = () => {
+    this.setState({
+      newFolder: true,
+    });
+  };
 
   render() {
     return (
       <div className='App'>
         <Header />
-        <SideBar storeData={this.state.storeData} />
-        <Route exact path='/' component={(props) => <Main storeData={this.state.storeData}/>} />
-        <Route path='/:folderName' component={(props) => <Folder storeData={this.state.storeData}/>} />
+        <main className='main'>
+        <SideBar
+          storeData={this.state.storeData}
+          newFolder={this.state.newFolder}
+          newNote={this.state.newNote}
+          addNewFolder={this.addNewFolder}
+        />
+        <Route
+          exact
+          path='/'
+          component={props => <Main storeData={this.state.storeData} />}
+        />
+        <Route
+          path='/:folderName'
+          component={props => (
+            <Folder {...props} storeData={this.state.storeData} />
+          )}
+        />
+        </main>
       </div>
     );
   }

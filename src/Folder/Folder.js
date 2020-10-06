@@ -1,12 +1,17 @@
 import React from 'react';
+import Note from '../Note/Note';
 
 export default class Folder extends React.Component {
-  state = {};
   render() {
-    console.log(this.props);
+
+    const folder = this.props.storeData.folders.filter(object => object.name === this.props.match.params.folderName);
+    const folderId = folder[0].id;
+
+
     return (
       <div>
-        <h1> Folders </h1>
+        {this.props.match.params.folderName}
+        <Note notes={this.props.storeData.notes} folderId={folderId}/>
       </div>
     );
   }
