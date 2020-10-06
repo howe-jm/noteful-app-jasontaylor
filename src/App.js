@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import storeData from './STORE';
+import { Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Folder from './Folder/Folder';
+import Main from './Main/Main';
+import Header from './Header/Header';
+import SideBar from './SideBar/SideBar';
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      storeData
+    }
+  }
+
+
+  render() {
+    return (
+      <div className='App'>
+        <Header />
+        <SideBar storeData={this.state.storeData} />
+        <Route exact path='/' component={(props) => <Main storeData={this.state.storeData}/>} />
+        <Route path='/:folderName' component={(props) => <Folder storeData={this.state.storeData}/>} />
+      </div>
+    );
+  }
 }
-
-export default App;
